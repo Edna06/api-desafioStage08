@@ -1,7 +1,8 @@
 const AppError = require('../utils/AppError')
-const { hash } = require('bcryptjs')
 
 const sqliteConnection = require('../database/sqlite')
+
+const { hash } = require('bcryptjs')
 
 class UsersController {
   async create(request, response) {
@@ -19,15 +20,24 @@ class UsersController {
       throw new AppError('Usuário já está em uso!')
     }
 
+
+    const encryptUserPassword = await hash(password, 8)
+
+
     //cadastrando novo usuário
     await database.run(
       'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
-      [name, email, password]
+      [name, email, encryptUserPassword]
     )
 
 
 
-    
+
+
+
+
+
+
 
     return response.status(204).end()
   }
