@@ -1,16 +1,35 @@
 const AppError = require('../utils/AppError')
+const { hash } = require('bcryptjs')
 
+const sqliteConnection = require('../database/sqlite')
 
 class UsersController {
-  create(request, response) {
+  async create(request, response) {
     const { name, email, password } = request.body
-
     //verificando se o usuário informou o nome e enviando notificaçõa caso ele não tenha informado
-    if(!name){
-      throw new AppError("Nome é obrigatório!")
+
+    const database = await sqliteConnection()
+
+    const checkUserExists = await database.get(
+      ' SELECT * FROM users WHERE email = (?)',
+      [email]
+    )
+
+    if (checkUserExists) {
+      throw new AppError('Usuário já está em uso!')
     }
 
-    response.status(201).json({ name, email, password })
+    //cadastrando novo usuário
+    await database.run(
+      'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
+      [name, email, password]
+    )
+
+
+
+    
+
+    return response.status(204).end()
   }
 }
 

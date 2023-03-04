@@ -3,6 +3,7 @@ const sqlite3 = require('sqlite3') // responsável por fazer a comunicação
 
 const path = require('path')
 
+//criando o meu database
 async function sqliteConnection(){
   const database = await sqlite.open({ //abrindo uma conexão
     filename: path.resolve(__dirname, "..", "database.db"),
