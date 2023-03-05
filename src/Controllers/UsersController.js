@@ -71,13 +71,13 @@ class UsersController {
      user.password = await hash(password, 8)
     }
 
-    //agora, atualizando os dados do usuário
-    user.name = name
-    user.email = email
+    //agora, atualizando os dados do usuário. Irei verificar se existe um novo valor inserido para que esse valor não fique em branco
+    user.name = name ?? user.name
+    user.email = email ?? user.email
 
     await database.run(
-      ` UPDATE users SET name = ?, email = ?, password = ?, updated_at = ? WHERE id = (?)`,
-      [user.name, user.email, user.password, new Date(), id]
+      ` UPDATE users SET name = ?, email = ?, password = ?, updated_at = DATETIME('now') WHERE id = (?)`,
+      [user.name, user.email, user.password, id]
     )
 
 
