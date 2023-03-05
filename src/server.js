@@ -2,7 +2,7 @@ require('express-async-errors') //importando a biblioteca para lidar com erros n
 const express = require('express')
 const routes = require('./routes')
 const AppError = require('./utils/AppError')
-const migrationsRun = require('./database/sqlite/migrations')
+
 
 const app = express()
 
@@ -28,7 +28,5 @@ app.use((error, request, response, next) => {
 })
 
 const PORT = 3333
-
-migrationsRun() // responsável por criar/carregar o meu banco de dados
 
 app.listen(PORT, () => console.log(`server is running on Port ${PORT}`))
