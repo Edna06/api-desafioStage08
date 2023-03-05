@@ -80,12 +80,6 @@ class UsersController {
       [user.name, user.email, user.password, id]
     )
 
-
-
-
-
-
-
     return response.json()
   }
 }
