@@ -10,4 +10,4 @@ exports.up = knex =>
     table.timestamp('updated_at').default(knex.fn.now())
   })
 
-exports.down = knex => knex.screma.dropTable('users', table => {})
+exports.down = knex => knex.schema.dropTable('users', table => {})
