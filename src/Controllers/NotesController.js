@@ -6,7 +6,7 @@ class NotesController {
     const { title, description, rating, tags } = request.body
     const { user_id } = request.params
 
-    const note_id = await knex("movie_notes").insert({
+    const note_id = await knex('movie_notes').insert({
       title,
       description,
       rating,
@@ -27,22 +27,23 @@ class NotesController {
   }
 
   //exibindo nota
-  async show(request, response){
-    const {id} = request.params;
+  async show(request, response) {
+    const { id } = request.params
 
-    const note = await knex("movie_notes").where({id}).first()
-    const tags = await knex("movie_tags").where({note_id: id}).orderBy('name')
+    const note = await knex('movie_notes').where({ id }).first()
+    const tags = await knex('movie_tags').where({ note_id: id }).orderBy('name')
 
     return response.json({
       ...note,
-      tags})
+      tags
+    })
   }
 
   //deletando nota
   async delete(request, response) {
-    const {id} = request.params
+    const { id } = request.params
 
-    await knex("movie_notes").where({id}).delete()
+    await knex('movie_notes').where({ id }).delete()
 
     return response.json()
   }
@@ -50,17 +51,22 @@ class NotesController {
   //listando notas
   async index(request, response) {
     //vou inserir os dados pela query
-    const {user_id, title} = request.query
+    const { user_id, title, tags } = request.query
 
-    const notes = await knex("movie_notes")
-    .where({user_id})
-    .whereLike('title', `%${title}%`)
-    .orderBy('title')
-
+    let notes
+    
+    //filtrando por tags
+    if(tags) {
+      const filterTags = tags.split(",").map(tag => tag.trim()) //filtrando somente a tag
+    
+      notes = await knex("movie_tags").whereIn('name', filterTags)
+    } else {
+      notes = await knex('movie_notes')
+        .where({ user_id })
+        .whereLike('title', `%${title}%`)
+        .orderBy('title')
+    }
     return response.json(notes)
-
-
-
   }
 }
 
