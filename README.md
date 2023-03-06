@@ -7,4 +7,4 @@ O diagrama abaixo é a representação das tabelas e seus campos, que a aplicaç
 * Foram adicionados:
 - Criptografia de senhas;
 - Validação de e-mail;
-- Aplicar o cascade para garantir que uma tag será excluída caso o usuário opte por excluir a nota.
+- Aplicação do cascade para garantir que uma tag será excluída caso o usuário opte por excluir a nota.
