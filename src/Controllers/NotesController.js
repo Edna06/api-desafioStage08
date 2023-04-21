@@ -4,7 +4,7 @@ class NotesController {
   //criando nota
   async create(request, response) {
     const { title, description, rating, tags } = request.body
-    const { user_id } = request.params
+    const  user_id  = request.user.id
 
     const [note_id] = await knex('movie_notes').insert({
       title,
@@ -51,7 +51,8 @@ class NotesController {
   //listando notas
   async index(request, response) {
     //vou inserir os dados pela query
-    const { user_id, title, tags } = request.query
+    const { title, tags } = request.query
+    const user_id = request.user.id
 
     let notes
 

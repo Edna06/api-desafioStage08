@@ -22,9 +22,9 @@ class SessionController {
     }
 
     const {secret, expiresIn} = authConfig.jwt
-    const token = sign({}, secret, {subject: String(user.id), expiresIn})
+    const token = sign({}, secret, {subject: String(user.id), expiresIn}) // sign retornará uma string que representa o token JWT assinado. 
 
-    return response.json({user, token}) //tem que me retornar os dados do usuário e o token de autenticação 
+    return response.json({user, token}) //tem que me retornar os dados do usuário e o token de autenticação
   }
 }
 
