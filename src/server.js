@@ -1,3 +1,5 @@
+const cors = require("cors")
+
 require('express-async-errors') //importando a biblioteca para lidar com erros no servidor e do cliente
 const express = require('express')
 const routes = require('./routes')
@@ -11,6 +13,8 @@ const app = express()
 app.use(express.json())
 
 app.use(routes)
+
+app.use(cors())
 
 app.use('/files', express.static(uploadConfig.UPLOADS_FOLDER)) // busca pelo que está dentro da pasta uploads
 
