@@ -3,12 +3,16 @@ const express = require('express')
 const routes = require('./routes')
 const AppError = require('./utils/AppError')
 
+const uploadConfig = require('./configs/upload')
+
 
 const app = express()
 
 app.use(express.json())
 
 app.use(routes)
+
+app.use('/files', express.static(uploadConfig.UPLOADS_FOLDER)) // busca pelo que está dentro da pasta uploads
 
 app.use((error, request, response, next) => {
   //se o erro for do cliente
