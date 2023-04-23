@@ -7,14 +7,12 @@ const AppError = require('./utils/AppError')
 
 const uploadConfig = require('./configs/upload')
 
-
 const app = express()
 
+app.use(cors())
 app.use(express.json())
-
 app.use(routes)
 
-app.use(cors())
 
 app.use('/files', express.static(uploadConfig.UPLOADS_FOLDER)) // busca pelo que está dentro da pasta uploads
 
