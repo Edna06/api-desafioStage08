@@ -18,7 +18,7 @@ class UsersController {
     )
 
     if (checkUserExists) {
-      throw new AppError('Usuário já está em uso!')
+      throw new AppError('Email já está em uso!')
     }
 
     const encryptUserPassword = await hash(password, 8)
