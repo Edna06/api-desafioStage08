@@ -2,7 +2,7 @@
 
 module.exports = {
   jwt: {
-    secret: 'default', // representa a chave secreta usada para assinar o token.
+    secret: process.env.AUTH_SECRET || 'default', // representa a chave secreta usada para assinar o token.
     expiresIn: '1d' //tempo de expiração
   }
 }
